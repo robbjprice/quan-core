@@ -16,12 +16,12 @@
       --bg-dark: #0f172a;
       --white: #ffffff;
       --max: 1200px;
-      --radius: 16px;
       --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -582,7 +582,7 @@
     <section class="strip">
       <div class="container two-col">
         <div class="portrait-lg">
-          <img id="hudeImgMain" alt="Hude Quan portrait" />
+          <img id="hudeImgMain" alt="Hude Quan portrait" src="hude.png" />
         </div>
         <div>
           <h2 style="margin-top:0;">Hude Quan</h2>
@@ -605,7 +605,7 @@
         <div class="leadership-grid">
           <div class="person">
             <div class="portrait-sm">
-              <img id="catherineImgEl" alt="Catherine Eastwood portrait" />
+              <img id="catherineImgEl" alt="Catherine Eastwood portrait" src="catherine.png" />
             </div>
             <div>
               <div class="person-name">Catherine Eastwood</div>
@@ -615,7 +615,7 @@
 
           <div class="person">
             <div class="portrait-sm">
-              <img id="naImgEl" alt="Na Li portrait" />
+              <img id="naImgEl" alt="Na Li portrait" src="na.png" />
             </div>
             <div>
               <div class="person-name">Na Li</div>
@@ -801,7 +801,7 @@
       <h1>Hude Quan</h1>
 
       <div class="portrait-lg" style="margin-bottom: 28px;">
-        <img id="hudeImgMemorial" alt="Hude Quan portrait" />
+        <img id="hudeImgMemorial" alt="Hude Quan portrait" src="hude.png" />
       </div>
 
       <p>
@@ -815,17 +815,6 @@
   </div>
 
   <script>
-    const cleanImg = (s) => s && s.replace(/\s+/g, '');
-
-    const hudeImg = "PASTE_YOUR_EXISTING_HUDE_BASE64_STRING_HERE";
-    const naImg = "PASTE_YOUR_EXISTING_NA_BASE64_STRING_HERE";
-    const catherineImg = "PASTE_YOUR_EXISTING_CATHERINE_BASE64_STRING_HERE";
-
-    document.getElementById("hudeImgMain").src = cleanImg(hudeImg);
-    document.getElementById("hudeImgMemorial").src = cleanImg(hudeImg);
-    document.getElementById("naImgEl").src = cleanImg(naImg);
-    document.getElementById("catherineImgEl").src = cleanImg(catherineImg);
-
     const homeView = document.getElementById("homeView");
     const memorialView = document.getElementById("memorialView");
     const viewMemorialBtn = document.getElementById("viewMemorialBtn");
