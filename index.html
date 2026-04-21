@@ -1129,72 +1129,310 @@
     </section>
 
     <section id="research" class="section alt">
-      <div class="container">
-        <p class="section-label">Research &amp; Innovation</p>
-        <h2>Research Areas</h2>
-        <div class="intro-copy">
-          <p>
-            Key research themes are organized below. Each section expands to show current areas of activity and program development.
-          </p>
-        </div>
+  <div class="container">
+    <p class="section-label">Research &amp; Innovation</p>
+    <h2>Research Areas</h2>
+    <div class="intro-copy">
+      <p>
+        Key research themes are organized below. Each section can be flipped to reveal current areas of activity and program development.
+      </p>
+    </div>
 
-        <div class="research-grid">
-          <details class="research-card">
-            <summary class="research-summary">
-              <span>Population and Administrative Data Research</span>
-              <span>⌄</span>
-            </summary>
-            <div class="research-body">
-              <ul>
-                <li>Administrative data validation studies</li>
-                <li>AI/ML applications using administrative data</li>
-              </ul>
-            </div>
-          </details>
+    <style>
+      .research-flip-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        margin-top: 34px;
+      }
 
-          <details class="research-card">
-            <summary class="research-summary">
-              <span>EMR Research and Data Quality</span>
-              <span>⌄</span>
-            </summary>
-            <div class="research-body">
-              <ul>
-                <li>EMR data analytics</li>
-                <li>EMR data quality</li>
-                <li>HF studies with AI/ML applications</li>
-              </ul>
-            </div>
-          </details>
+      .research-flip-card {
+        perspective: 1400px;
+        min-height: 250px;
+      }
 
-          <details class="research-card">
-            <summary class="research-summary">
-              <span>AI and Advanced Methods</span>
-              <span>⌄</span>
-            </summary>
-            <div class="research-body">
-              <ul>
-                <li>Federated learning for case finding of diseases, comorbidities, and clinical conditions</li>
-                <li>Temporal pattern learning for clinical trajectory analysis and risk prediction</li>
-                <li>HDRN-SPOR-MASK</li>
-              </ul>
-            </div>
-          </details>
+      .research-flip-inner {
+        position: relative;
+        width: 100%;
+        min-height: 250px;
+        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+        transform-style: preserve-3d;
+      }
 
-          <details class="research-card">
-            <summary class="research-summary">
-              <span>Global Collaborative Programs</span>
-              <span>⌄</span>
-            </summary>
-            <div class="research-body">
-              <ul>
-                <li>WHO Collaborating Centre work</li>
-                <li>Broader partnership and collaboration initiatives</li>
-              </ul>
+      .research-flip-card.is-flipped .research-flip-inner {
+        transform: rotateY(180deg);
+      }
+
+      .research-face {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border-radius: 22px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-md);
+      }
+
+      .research-face-front {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 22px 24px;
+        background:
+          linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+      }
+
+      .research-face-back {
+        transform: rotateY(180deg);
+        padding: 22px 24px;
+        background:
+          radial-gradient(circle at top right, rgba(140, 0, 26, 0.08), transparent 28%),
+          linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      }
+
+      .research-front-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .research-front-title {
+        font-size: 24px;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        font-weight: 800;
+        margin: 0;
+      }
+
+      .research-flip-icon {
+        flex: 0 0 auto;
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: rgba(140, 0, 26, 0.08);
+        color: var(--uc-red);
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .research-front-copy {
+        color: var(--ink-soft);
+        font-size: 15px;
+        line-height: 1.75;
+        margin-top: 16px;
+      }
+
+      .research-flip-btn,
+      .research-flip-back-btn {
+        appearance: none;
+        border: 0;
+        background: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .research-flip-btn {
+        margin-top: 22px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--uc-red);
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+      }
+
+      .research-back-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+
+      .research-back-title {
+        font-size: 20px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        font-weight: 800;
+        margin: 0;
+      }
+
+      .research-flip-back-btn {
+        color: var(--uc-red);
+        font-size: 13px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .research-back-list {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--ink-soft);
+      }
+
+      .research-back-list li {
+        margin-bottom: 12px;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 900px) {
+        .research-flip-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <div class="research-flip-grid">
+      <div class="research-flip-card" data-flip-card>
+        <div class="research-flip-inner">
+          <div class="research-face research-face-front">
+            <div>
+              <div class="research-front-top">
+                <h3 class="research-front-title">Population and Administrative Data Research</h3>
+                <div class="research-flip-icon">↻</div>
+              </div>
+              <div class="research-front-copy">
+                Foundational work focused on administrative data validity, classification approaches, and applied analytics using population-scale datasets.
+              </div>
             </div>
-          </details>
+            <button class="research-flip-btn" type="button" data-flip-toggle>
+              View research focus →
+            </button>
+          </div>
+
+          <div class="research-face research-face-back">
+            <div class="research-back-head">
+              <h3 class="research-back-title">Population and Administrative Data Research</h3>
+              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
+            </div>
+            <ul class="research-back-list">
+              <li>Administrative data validation studies</li>
+              <li>AI/ML applications using administrative data</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </section>
+
+      <div class="research-flip-card" data-flip-card>
+        <div class="research-flip-inner">
+          <div class="research-face research-face-front">
+            <div>
+              <div class="research-front-top">
+                <h3 class="research-front-title">EMR Research and Data Quality</h3>
+                <div class="research-flip-icon">↻</div>
+              </div>
+              <div class="research-front-copy">
+                Research centered on electronic medical record analytics, data quality, and practical clinical applications using real-world health information.
+              </div>
+            </div>
+            <button class="research-flip-btn" type="button" data-flip-toggle>
+              View research focus →
+            </button>
+          </div>
+
+          <div class="research-face research-face-back">
+            <div class="research-back-head">
+              <h3 class="research-back-title">EMR Research and Data Quality</h3>
+              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
+            </div>
+            <ul class="research-back-list">
+              <li>EMR data analytics</li>
+              <li>EMR data quality</li>
+              <li>HF studies with AI/ML applications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="research-flip-card" data-flip-card>
+        <div class="research-flip-inner">
+          <div class="research-face research-face-front">
+            <div>
+              <div class="research-front-top">
+                <h3 class="research-front-title">AI and Advanced Methods</h3>
+                <div class="research-flip-icon">↻</div>
+              </div>
+              <div class="research-front-copy">
+                Advanced computational methods supporting prediction, federated learning, and richer modeling of clinical and health system patterns.
+              </div>
+            </div>
+            <button class="research-flip-btn" type="button" data-flip-toggle>
+              View research focus →
+            </button>
+          </div>
+
+          <div class="research-face research-face-back">
+            <div class="research-back-head">
+              <h3 class="research-back-title">AI and Advanced Methods</h3>
+              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
+            </div>
+            <ul class="research-back-list">
+              <li>Federated learning for case finding of diseases, comorbidities, and clinical conditions</li>
+              <li>Temporal pattern learning for clinical trajectory analysis and risk prediction</li>
+              <li>HDRN-SPOR-MASK</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="research-flip-card" data-flip-card>
+        <div class="research-flip-inner">
+          <div class="research-face research-face-front">
+            <div>
+              <div class="research-front-top">
+                <h3 class="research-front-title">Global Collaborative Programs</h3>
+                <div class="research-flip-icon">↻</div>
+              </div>
+              <div class="research-front-copy">
+                Collaborative initiatives that connect local research strengths with broader institutional, national, and international partnerships.
+              </div>
+            </div>
+            <button class="research-flip-btn" type="button" data-flip-toggle>
+              View research focus →
+            </button>
+          </div>
+
+          <div class="research-face research-face-back">
+            <div class="research-back-head">
+              <h3 class="research-back-title">Global Collaborative Programs</h3>
+              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
+            </div>
+            <ul class="research-back-list">
+              <li>WHO Collaborating Centre work</li>
+              <li>Broader partnership and collaboration initiatives</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const section = document.getElementById("research");
+        if (!section) return;
+
+        const cards = section.querySelectorAll("[data-flip-card]");
+
+        cards.forEach((card) => {
+          const toggles = card.querySelectorAll("[data-flip-toggle]");
+          toggles.forEach((btn) => {
+            btn.addEventListener("click", function () {
+              card.classList.toggle("is-flipped");
+            });
+          });
+        });
+      })();
+    </script>
+  </div>
+</section>
 
     <section id="publications" class="section">
       <div class="container">
