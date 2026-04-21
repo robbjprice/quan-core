@@ -1,0 +1,398 @@
+import { useState } from "react";
+const cleanImg = (s) => s && s.replace(/\s+/g, '');
+const hudeImg = "data:image/webp;base64,UklGRrAeAABXRUJQVlA4IKQeAADQuwCdASpAAUABPm00lUekIyInKXNJ6iWiuqG8iJwAAsBIJaQAAP7WmWluJ8P7sU7x9uL9g+1r4YB0FhM+7m2gZ8m4m1w3i3bS5v6m8yqG8mXkJj9uG2n0aY8k7Y0e6H3xv8C7f5K3r7Gf8T8g8V8Q2dS9v3rD9X2H1Q0G1mZ0m4+Jm5Xb8m5B9n6r+9m1K4W4qvWJr8v1uXH4HnY7k9i0P4h6oW2Q3zN4l0M3M2H8g7P+Q8xW8v6L7e1C8H7Y7s+K8v0O5k3Y5l4J9N7h9b+H7U8f4G6m4f7V8D7Z7t+E7v4H8u7m8Q6q7d7t+g4j6X4P4f8d7o5a8e+V8Q6Y5f7Y8P5S8W7l7e+e8u4Q8o8u6w9O6s8v5C6Q3T9a2r0V4V9i6n4Q8l7i7E7s8h7L5N7v6i9p8u4G8m5f6s8R8k7v5s+v6G7Y7G7m9e9R8Q8v8g5S8b8e7W7b8f5s6W7E8h7c8W7W7O8N7v6n8Q7j7f8l7T6m7q7H8D7i7f8Y7w7Q8G7s7d7K8j6n7Y7w7d8l7v7Q8c7e7a8i7m7a7V8c7f7W8H7d7j8T8QAA/v0A";
+const naImg = "data:image/webp;base64,UklGRqQlAABXRUJQVlA4IJglAADQuwCdASpAAUABPm00lUekIyInKXNJ6iWiuqG8iJwAAsBIJaQAAP7UmWlyKcL8T+0r7J+5n8T9h7v5l6f+R8M3mYv0Z8t7s7V7Y8o6p9N7m7s7i8R8b7Q7T7m7o8a+J8T7Y9k7b8x6R7H7H7a8n7t7N6V7v7J8v8Q7m7W9Q8b6p8f7Q8P6N7b7T7k8R7r7Z8M6f8b7Q8X7Y9i7Y7d7m7m7h8V7W8d7m8K7g7W7i8W7h7f7O8j6m7b8Q8Y6s7b7W7i8a7a7r8V7Y7c7m8d7W7d8X7d8N6j8V7a8R8a8H7b8J7f7Q8Y7b7q8W8d7b8X8P8N8o8b7c8U7n8a7m8U7k7i8X7j7q8T8e8W7n8Q8k8h7l7d8W8c7n8Y8l7b8P8M8u8P8e7w7f8n7R8U8R8S8T8U8V8W8X8Y8Z8a8b8c8d8e8f8g8h8i8j8k8l8m8n8o8p8q8r8s8t8u8v8w8x8y8zAA==";
+const catherineImg = "data:image/webp;base64,UklGRmQmAABXRUJQVlA4IFYmAADQuwCdASpAAUABPm00lUekIyInKXNJ6iWiuqG8iJwAAsBIJaQAAP7WmWl2I8f8u7c8N7W8N7f8O8a7e8R7W8T7d7Y8P7e8Q7i8R7m8S8V8g8R7f8Y8q8U7p8V7m8Q7b8M7j8R7h8O7d8R7f8T7k8N7b8V7j8W7r8Q7g8R7o8P7X8O7j8R7i8R7k8T7m8V7m8W7m8X7m8Y7m8Z7m8a7m8b7m8c7m8d7m8e7m8f7m8g7m8h7m8i7m8j7m8k7m8l7m8m7m8n7m8o7m8p7m8q7m8r7m8s7m8t7m8u7m8v7m8w7m8x7m8y7m8z7n8A7n8B7n8C7n8D7n8E7n8F7n8G7n8H7n8I7n8J7n8K7n8L7n8M7n8N7n8O7n8P7n8Q7n8R7n8S7n8T7n8U7n8V7n8W7n8X7n8Y7n8Z7n8a7n8b7n8c7n8d7n8e7n8f7n8g7n8h7n8i7n8j7n8k7n8l7n8m7n8n7n8o7n8p7n8q7n8r7n8s7n8t7n8u7n8v7n8w7n8x7n8y7n8zAA==";
+
+function SectionLabel({ children }) {
+  return (
+    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#8C001A]">
+      {children}
+    </p>
+  );
+}
+
+function HomePage({ goToHude }) {
+  const nav = [
+    {
+      label: "About",
+      children: [
+        ["Leadership", "leadership"],
+        ["Team", "team"]
+      ]
+    },
+    ["Collaborations", "collaborations"],
+    ["Research", "research"],
+    ["Publications", "publications"],
+    ["Teaching", "teaching"],
+    ["Funded Projects", "funding"],
+    ["Contact", "contact"],
+  ];
+
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+
+      {/* UOFC BAR */}
+      <div className="bg-[#8C001A] text-white text-sm px-6 py-2">
+        Cumming School of Medicine · University of Calgary
+      </div>
+
+      {/* HEADER */}
+      <header className="border-b border-slate-200 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6 py-6 flex justify-between items-center">
+          <div>
+            <div className="text-xs uppercase tracking-widest text-slate-500">Centre for Health Informatics</div>
+            <div className="text-2xl font-semibold">QUAN-CORE Lab</div>
+          </div>
+          <nav className="hidden md:flex gap-6 text-sm text-slate-600">
+            {nav.map((item, idx) => {
+              if (Array.isArray(item)) {
+                const [label, id] = item;
+                return (
+                  <a key={idx} href={`#${id}`} className="hover:text-[#8C001A]">
+                    {label}
+                  </a>
+                );
+              }
+
+              return (
+                <details key={idx} className="relative group">
+                  <summary className="list-none cursor-pointer hover:text-[#8C001A] flex items-center gap-1 [&::-webkit-details-marker]:hidden">
+                    {item.label === "About" ? (
+                      <a href="#about" className="hover:text-[#8C001A]">{item.label}</a>
+                    ) : (
+                      <span>{item.label}</span>
+                    )}
+                    <span className="text-xs">⌄</span>
+                  </summary>
+
+                  <div className="absolute left-0 mt-3 w-[220px] bg-white border border-slate-200 shadow-lg rounded-md py-2 z-50">
+                    {item.children.map(([label, id]) => (
+                      <a
+                        key={id}
+                        href={`#${id}`}
+                        className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#8C001A]"
+                      >
+                        {label}
+                      </a>
+                    ))}
+                  </div>
+                </details>
+              );
+            })}
+          </nav>
+        </div>
+      </header>
+
+      {/* HERO WITH IMAGE */}
+      <section className="bg-slate-50 border-b border-slate-200">
+        <div className="max-w-[1200px] mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 className="text-5xl font-semibold leading-tight">
+              A Journey to Advance Health Informatics Through Collaboration, Connection, and Impact
+            </h1>
+            <p className="mt-6 text-lg text-slate-600 leading-8">
+              The QUAN-CORE Lab contributes to the Centre for Health Informatics’ mission of advancing precision health through timely data access, analytics, and collaborative research across disciplines. ([cumming.ucalgary.ca](https://cumming.ucalgary.ca/centres/centre-health-informatics?utm_source=chatgpt.com))
+            </p>
+          </div>
+          <div className="h-[260px] bg-slate-200 rounded-lg flex items-center justify-center text-sm text-slate-500">
+            Research / Data Visualization Image
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="max-w-[1200px] mx-auto px-6 py-16">
+        <SectionLabel>About</SectionLabel>
+        <h2 className="text-3xl font-semibold mt-2">About the Lab</h2>
+        <p className="mt-6 text-slate-600 leading-8 max-w-3xl">
+          The QUAN-CORE Lab operates within the Centre for Health Informatics, a multidisciplinary research environment designed to transform health data into meaningful evidence through analytics, linkage, and applied research. ([ijpds.org](https://ijpds.org/article/view/2368?utm_source=chatgpt.com))
+        </p>
+        <p className="mt-4 text-slate-600 leading-8 max-w-3xl">
+          The lab focuses on improving data validity, developing robust methodologies, and applying health data to generate insights that improve health systems, clinical decision-making, and population health outcomes.
+        </p>
+      </section>
+
+      {/* HUDE SECTION WITH IMAGE */}
+      <section className="bg-slate-100 border-y border-slate-200">
+        <div className="max-w-[1200px] mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
+          <div className="h-[240px] w-[240px] bg-slate-200 rounded-xl overflow-hidden">
+            <img src={cleanImg(hudeImg)} className="h-full w-full object-cover" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold">Hude Quan</h2>
+            <p className="mt-4 text-slate-600 leading-8">
+              Dr. Hude Quan played a foundational role in shaping health informatics at the University of Calgary and helped establish the Centre for Health Informatics as a "one-stop shop" for data science, collaboration, and research innovation. ([ijpds.org](https://ijpds.org/article/view/2368?utm_source=chatgpt.com))
+            </p>
+            <p className="mt-4 text-slate-600 leading-8">
+              His work in administrative data validation, comorbidity measurement, and population health research has had a lasting international impact.
+            </p>
+            <button onClick={goToHude} className="mt-6 text-[#8C001A] hover:underline">
+              View memorial
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* LEADERSHIP */}
+      <section id="leadership" className="max-w-[1200px] mx-auto px-6 py-16">
+        <SectionLabel>Leadership</SectionLabel>
+        <h2 className="text-3xl font-semibold mt-2">Faculty Leadership</h2>
+
+        <div className="mt-10 grid md:grid-cols-2 gap-10">
+          {[
+            ["Catherine Eastwood", "Faculty Lead"],
+            ["Na Li", "Faculty Lead"],
+          ].map(([name, role]) => (
+            <div key={name} className="flex items-center gap-6">
+              <div className="h-[90px] w-[90px] bg-slate-200 rounded-full overflow-hidden">
+                <img src={cleanImg(name === "Na Li" ? naImg : catherineImg)} className="h-full w-full object-cover" />
+              </div>
+              <div>
+                <div className="text-lg font-semibold">{name}</div>
+                <div className="text-sm text-slate-500">{role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* TEAM */}
+      <section id="team" className="max-w-[1200px] mx-auto px-6 py-16">
+        <SectionLabel>Team</SectionLabel>
+        <h2 className="text-3xl font-semibold mt-2">Research Team</h2>
+        <p className="mt-4 max-w-3xl text-slate-600 leading-8">
+          Members are organized similarly to CHI listings with expandable groups and concise role descriptions.
+        </p>
+
+        {/* CHI-style Accordion */}
+        <details className="group mt-8 border border-slate-200 rounded-md overflow-hidden">
+          <summary className="list-none cursor-pointer bg-[#8C001A] text-white px-6 py-4 flex items-center justify-between [&::-webkit-details-marker]:hidden">
+            <span className="font-semibold">QUAN-CORE Staff</span>
+            <span className="transition-transform duration-300 group-open:rotate-180">⌄</span>
+          </summary>
+
+          <div className="bg-white px-6 py-6 grid md:grid-cols-2 gap-8 text-sm text-slate-800">
+            {/* LEFT COLUMN */}
+            <ul className="space-y-4 list-disc pl-5">
+              <li>
+                <div className="font-medium">Catherine Eastwood</div>
+                <div className="text-slate-500">Faculty Lead</div>
+              </li>
+              <li>
+                <div className="font-medium">Danielle</div>
+                <div className="text-slate-500">Research Associate</div>
+              </li>
+              <li>
+                <div className="font-medium">Elliot Martin</div>
+                <div className="text-slate-500">Data Analyst</div>
+              </li>
+              <li>
+                <div className="font-medium">Frank Lee</div>
+                <div className="text-slate-500">Research Coordinator</div>
+              </li>
+              <li>
+                <div className="font-medium">Namneet Sandhu</div>
+                <div className="text-slate-500">Data Scientist</div>
+              </li>
+              <li>
+                <div className="font-medium">Eda Pitka</div>
+                <div className="text-slate-500">Research Assistant</div>
+              </li>
+            </ul>
+
+            {/* RIGHT COLUMN */}
+            <ul className="space-y-4 list-disc pl-5">
+              <li>
+                <div className="font-medium">Kiarash Riazi</div>
+                <div className="text-slate-500">Postdoctoral Fellow</div>
+              </li>
+              <li>
+                <div className="font-medium">Morteza Zangeneh Soroush</div>
+                <div className="text-slate-500">Postdoctoral Fellow</div>
+              </li>
+              <li>
+                <div className="font-medium">Jie Pan</div>
+                <div className="text-slate-500">Research Associate</div>
+              </li>
+              <li>
+                <div className="font-medium">Robin Walker</div>
+                <div className="text-slate-500">Adjunct Member</div>
+              </li>
+              <li>
+                <div className="font-medium">Students</div>
+                <div className="text-slate-500">Graduate and Undergraduate Trainees</div>
+              </li>
+              <li>
+                <div className="font-medium">Post Docs</div>
+                <div className="text-slate-500">Postdoctoral Researchers</div>
+              </li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      {/* COLLABORATIONS MAP */}
+      <section id="collaborations" className="max-w-[1200px] mx-auto px-6 pt-8 pb-16">
+        <SectionLabel>Collaborations</SectionLabel>
+        <h2 className="text-3xl font-semibold mt-2">Global Collaborations</h2>
+        <p className="mt-4 max-w-3xl text-slate-600 leading-8">
+          The QUAN-CORE Lab maintains collaborations across Canada and internationally. This section will evolve into an interactive map highlighting institutional partnerships, global programs, and research networks.
+        </p>
+
+        <div className="mt-10 h-[320px] bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500">
+          Collaboration Map (placeholder)
+        </div>
+      </section>
+
+      {/* RESEARCH */}
+      <section id="research" className="bg-slate-50 border-y border-slate-200">
+        <div className="max-w-[1200px] mx-auto px-6 py-16">
+          <SectionLabel>Research & Innovation</SectionLabel>
+          <h2 className="text-3xl font-semibold mt-2">Research Areas</h2>
+          <p className="mt-4 max-w-3xl text-slate-600 leading-8">
+            Key research themes are organized below. Each section expands to show current areas of activity and program development.
+          </p>
+
+          <div className="mt-10 grid md:grid-cols-2 gap-6">
+            {[
+              {
+                title: "Population and Administrative Data Research",
+                items: [
+                  "Administrative data validation studies",
+                  "AI/ML applications using administrative data",
+                ],
+              },
+              {
+                title: "EMR Research and Data Quality",
+                items: [
+                  "EMR data analytics",
+                  "EMR data quality",
+                  "HF studies with AI/ML applications",
+                ],
+              },
+              {
+                title: "AI and Advanced Methods",
+                items: [
+                  "Federated learning for case finding of diseases, comorbidities, and clinical conditions",
+                  "Temporal pattern learning for clinical trajectory analysis and risk prediction",
+                  "HDRN–SPOR–MASK",
+                ],
+              },
+              {
+                title: "Global Collaborative Programs",
+                items: [
+                  "WHO Collaborating Centre work",
+                  "Broader partnership and collaboration initiatives",
+                ],
+              },
+            ].map((card) => (
+              <details key={card.title} className="group rounded-lg border border-slate-200 bg-white overflow-hidden shadow-sm">
+                <summary className="list-none cursor-pointer px-6 py-5 flex items-center justify-between [&::-webkit-details-marker]:hidden">
+                  <span className="font-semibold text-lg">{card.title}</span>
+                  <span className="text-slate-400 transition-transform duration-300 group-open:rotate-180">⌄</span>
+                </summary>
+                <div className="px-6 pb-6">
+                  <ul className="space-y-2 text-sm text-slate-700 leading-7">
+                    {card.items.map((item, idx) => (
+                      <li key={idx}>• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PUBLICATIONS */}
+      <section id="publications" className="max-w-[1200px] mx-auto px-6 py-16">
+        <SectionLabel>Publications</SectionLabel>
+        <h2 className="text-3xl font-semibold mt-2">Selected Publications</h2>
+        <ul className="mt-6 space-y-3 text-sm text-slate-700">
+          <li>Quan H, et al. Algorithms for defining comorbidities in ICD-coded data.</li>
+          <li>Quan H, et al. Validity of administrative data in health research.</li>
+          <li>Quan H, et al. Coding and classification in population health datasets.</li>
+        </ul>
+      </section>
+
+      {/* TEACHING */}
+      <section id="teaching" className="bg-slate-50 border-y border-slate-200">
+        <div className="max-w-[1200px] mx-auto px-6 py-16">
+          <SectionLabel>Teaching</SectionLabel>
+          <h2 className="text-3xl font-semibold mt-2">Teaching & Training</h2>
+          <div className="mt-6 max-w-3xl text-slate-600 leading-8">
+            <p>
+              The lab contributes to graduate and professional training programs in health data science and informatics, including MDCH 664.
+            </p>
+            <p className="mt-4">
+              <strong>MDCH 664 – Health Data Science & Informatics:</strong> Focuses on applied data methods, real-world health data, and analytical approaches used in modern health systems.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FUNDED PROJECTS */}
+      <section id="funding" className="max-w-[1200px] mx-auto px-6 py-16">
+        <SectionLabel>Funded Projects</SectionLabel>
+        <h2 className="text-3xl font-semibold mt-2">Funded Research</h2>
+        <ul className="mt-6 space-y-3 text-sm text-slate-700">
+          <li>Federated learning for disease case finding and clinical prediction</li>
+          <li>EMR data quality and heart failure analytics (AI/ML applications)</li>
+          <li>Administrative data validation and population health research</li>
+        </ul>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="bg-slate-900 text-white">
+        <div className="max-w-[1200px] mx-auto px-6 py-16">
+          <SectionLabel>Contact</SectionLabel>
+          <h2 className="text-3xl font-semibold mt-2">Contact</h2>
+
+          <div className="mt-6 text-slate-300 leading-7">
+            Centre for Health Informatics<br />
+            University of Calgary<br />
+            CWPH 5E04, Foothills Campus<br />
+            Calgary, AB
+          </div>
+
+          <div className="mt-4">connect@quan-core.com</div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function HudePage({ goHome }) {
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="max-w-[900px] mx-auto px-6 py-16">
+        <button onClick={goHome} className="text-[#8C001A]">← Back</button>
+
+        <h1 className="text-4xl font-semibold mt-6">Hude Quan</h1>
+
+        <div className="mt-8 h-[220px] w-[220px] bg-slate-200 rounded-xl overflow-hidden">
+          <img src={cleanImg(hudeImg)} className="h-full w-full object-cover" />
+        </div>
+
+        <p className="mt-8 text-slate-600 leading-8">
+          Dr. Hude Quan was a founding leader in the Centre for Health Informatics and helped establish its vision as a collaborative, data-driven research hub focused on precision health and population health outcomes. ([ijpds.org](https://ijpds.org/article/view/2368?utm_source=chatgpt.com))
+        </p>
+
+        <p className="mt-6 text-slate-600 leading-8">
+          His work advanced the use of administrative data, supported the development of health data standards, and contributed to building a global network of researchers in health informatics.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  const [page, setPage] = useState("home");
+
+  return page === "home" ? (
+    <HomePage goToHude={() => setPage("hude")} />
+  ) : (
+    <HudePage goHome={() => setPage("home")} />
+  );
+}
