@@ -1134,153 +1134,73 @@
     <h2>Research Areas</h2>
     <div class="intro-copy">
       <p>
-        Key research themes are organized below. Each section can be flipped to reveal current areas of activity and program development.
+        Key research themes are organized below. Hover over each card to explore current areas of activity.
       </p>
     </div>
 
     <style>
       .research-flip-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 24px;
         margin-top: 34px;
       }
 
-      .research-flip-card {
-        perspective: 1400px;
-        min-height: 250px;
+      .flip-card {
+        perspective: 1200px;
       }
 
-      .research-flip-inner {
+      .flip-inner {
         position: relative;
         width: 100%;
-        min-height: 250px;
-        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+        height: 260px;
+        transition: transform 0.6s ease;
         transform-style: preserve-3d;
       }
 
-      .research-flip-card.is-flipped .research-flip-inner {
+      .flip-card:hover .flip-inner {
         transform: rotateY(180deg);
       }
 
-      .research-face {
+      .flip-face {
         position: absolute;
         inset: 0;
         backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
-        border-radius: 22px;
-        overflow: hidden;
+        border-radius: 20px;
         background: #fff;
         border: 1px solid var(--line);
         box-shadow: var(--shadow-md);
-      }
-
-      .research-face-front {
+        padding: 22px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        padding: 22px 24px;
-        background:
-          linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
-      }
-
-      .research-face-back {
-        transform: rotateY(180deg);
-        padding: 22px 24px;
-        background:
-          radial-gradient(circle at top right, rgba(140, 0, 26, 0.08), transparent 28%),
-          linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      }
-
-      .research-front-top {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 18px;
-      }
-
-      .research-front-title {
-        font-size: 24px;
-        line-height: 1.15;
-        letter-spacing: -0.03em;
-        font-weight: 800;
-        margin: 0;
-      }
-
-      .research-flip-icon {
-        flex: 0 0 auto;
-        width: 38px;
-        height: 38px;
-        display: inline-flex;
-        align-items: center;
         justify-content: center;
-        border-radius: 999px;
-        background: rgba(140, 0, 26, 0.08);
-        color: var(--uc-red);
-        font-size: 18px;
+      }
+
+      .flip-front h3 {
+        margin: 0;
+        font-size: 22px;
         font-weight: 800;
       }
 
-      .research-front-copy {
+      .flip-front p {
+        margin-top: 14px;
         color: var(--ink-soft);
         font-size: 15px;
-        line-height: 1.75;
-        margin-top: 16px;
       }
 
-      .research-flip-btn,
-      .research-flip-back-btn {
-        appearance: none;
-        border: 0;
-        background: none;
-        padding: 0;
-        font: inherit;
-        cursor: pointer;
+      .flip-back {
+        transform: rotateY(180deg);
+        background: linear-gradient(180deg, #ffffff, #f8fafc);
       }
 
-      .research-flip-btn {
-        margin-top: 22px;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--uc-red);
-        font-size: 14px;
-        font-weight: 800;
-        letter-spacing: 0.03em;
-      }
-
-      .research-back-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 14px;
-      }
-
-      .research-back-title {
-        font-size: 20px;
-        line-height: 1.2;
-        letter-spacing: -0.02em;
-        font-weight: 800;
+      .flip-back ul {
         margin: 0;
-      }
-
-      .research-flip-back-btn {
-        color: var(--uc-red);
-        font-size: 13px;
-        font-weight: 800;
-        white-space: nowrap;
-      }
-
-      .research-back-list {
-        margin: 0;
-        padding-left: 20px;
+        padding-left: 18px;
         color: var(--ink-soft);
       }
 
-      .research-back-list li {
-        margin-bottom: 12px;
-        line-height: 1.7;
+      .flip-back li {
+        margin-bottom: 10px;
       }
 
       @media (max-width: 900px) {
@@ -1291,29 +1211,15 @@
     </style>
 
     <div class="research-flip-grid">
-      <div class="research-flip-card" data-flip-card>
-        <div class="research-flip-inner">
-          <div class="research-face research-face-front">
-            <div>
-              <div class="research-front-top">
-                <h3 class="research-front-title">Population and Administrative Data Research</h3>
-                <div class="research-flip-icon">↻</div>
-              </div>
-              <div class="research-front-copy">
-                Foundational work focused on administrative data validity, classification approaches, and applied analytics using population-scale datasets.
-              </div>
-            </div>
-            <button class="research-flip-btn" type="button" data-flip-toggle>
-              View research focus →
-            </button>
-          </div>
 
-          <div class="research-face research-face-back">
-            <div class="research-back-head">
-              <h3 class="research-back-title">Population and Administrative Data Research</h3>
-              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
-            </div>
-            <ul class="research-back-list">
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <h3>Population and Administrative Data Research</h3>
+            <p>Validation, classification, and applied analytics using large-scale administrative datasets.</p>
+          </div>
+          <div class="flip-face flip-back">
+            <ul>
               <li>Administrative data validation studies</li>
               <li>AI/ML applications using administrative data</li>
             </ul>
@@ -1321,29 +1227,14 @@
         </div>
       </div>
 
-      <div class="research-flip-card" data-flip-card>
-        <div class="research-flip-inner">
-          <div class="research-face research-face-front">
-            <div>
-              <div class="research-front-top">
-                <h3 class="research-front-title">EMR Research and Data Quality</h3>
-                <div class="research-flip-icon">↻</div>
-              </div>
-              <div class="research-front-copy">
-                Research centered on electronic medical record analytics, data quality, and practical clinical applications using real-world health information.
-              </div>
-            </div>
-            <button class="research-flip-btn" type="button" data-flip-toggle>
-              View research focus →
-            </button>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <h3>EMR Research and Data Quality</h3>
+            <p>Exploring electronic medical record data for clinical insights and system improvement.</p>
           </div>
-
-          <div class="research-face research-face-back">
-            <div class="research-back-head">
-              <h3 class="research-back-title">EMR Research and Data Quality</h3>
-              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
-            </div>
-            <ul class="research-back-list">
+          <div class="flip-face flip-back">
+            <ul>
               <li>EMR data analytics</li>
               <li>EMR data quality</li>
               <li>HF studies with AI/ML applications</li>
@@ -1352,85 +1243,38 @@
         </div>
       </div>
 
-      <div class="research-flip-card" data-flip-card>
-        <div class="research-flip-inner">
-          <div class="research-face research-face-front">
-            <div>
-              <div class="research-front-top">
-                <h3 class="research-front-title">AI and Advanced Methods</h3>
-                <div class="research-flip-icon">↻</div>
-              </div>
-              <div class="research-front-copy">
-                Advanced computational methods supporting prediction, federated learning, and richer modeling of clinical and health system patterns.
-              </div>
-            </div>
-            <button class="research-flip-btn" type="button" data-flip-toggle>
-              View research focus →
-            </button>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <h3>AI and Advanced Methods</h3>
+            <p>Modern modeling approaches including federated learning and temporal prediction.</p>
           </div>
-
-          <div class="research-face research-face-back">
-            <div class="research-back-head">
-              <h3 class="research-back-title">AI and Advanced Methods</h3>
-              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
-            </div>
-            <ul class="research-back-list">
-              <li>Federated learning for case finding of diseases, comorbidities, and clinical conditions</li>
-              <li>Temporal pattern learning for clinical trajectory analysis and risk prediction</li>
+          <div class="flip-face flip-back">
+            <ul>
+              <li>Federated learning for disease detection</li>
+              <li>Temporal clinical pattern modeling</li>
               <li>HDRN-SPOR-MASK</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="research-flip-card" data-flip-card>
-        <div class="research-flip-inner">
-          <div class="research-face research-face-front">
-            <div>
-              <div class="research-front-top">
-                <h3 class="research-front-title">Global Collaborative Programs</h3>
-                <div class="research-flip-icon">↻</div>
-              </div>
-              <div class="research-front-copy">
-                Collaborative initiatives that connect local research strengths with broader institutional, national, and international partnerships.
-              </div>
-            </div>
-            <button class="research-flip-btn" type="button" data-flip-toggle>
-              View research focus →
-            </button>
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <h3>Global Collaborative Programs</h3>
+            <p>Connecting research across institutions and international health systems.</p>
           </div>
-
-          <div class="research-face research-face-back">
-            <div class="research-back-head">
-              <h3 class="research-back-title">Global Collaborative Programs</h3>
-              <button class="research-flip-back-btn" type="button" data-flip-toggle>← Back</button>
-            </div>
-            <ul class="research-back-list">
+          <div class="flip-face flip-back">
+            <ul>
               <li>WHO Collaborating Centre work</li>
-              <li>Broader partnership and collaboration initiatives</li>
+              <li>International partnerships</li>
             </ul>
           </div>
         </div>
       </div>
+
     </div>
-
-    <script>
-      (function () {
-        const section = document.getElementById("research");
-        if (!section) return;
-
-        const cards = section.querySelectorAll("[data-flip-card]");
-
-        cards.forEach((card) => {
-          const toggles = card.querySelectorAll("[data-flip-toggle]");
-          toggles.forEach((btn) => {
-            btn.addEventListener("click", function () {
-              card.classList.toggle("is-flipped");
-            });
-          });
-        });
-      })();
-    </script>
   </div>
 </section>
 
