@@ -7,16 +7,23 @@
   <style>
     :root {
       --uc-red: #8c001a;
-      --text: #0f172a;
-      --muted: #475569;
-      --muted-light: #64748b;
+      --uc-red-dark: #6f0014;
+      --ink: #0f172a;
+      --ink-soft: #334155;
+      --muted: #64748b;
       --line: #e2e8f0;
+      --line-soft: #eef2f7;
+      --bg: #ffffff;
       --bg-soft: #f8fafc;
       --bg-soft-2: #f1f5f9;
-      --bg-dark: #0f172a;
-      --white: #ffffff;
-      --max: 1200px;
-      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --bg-deep: #0b1220;
+      --card: rgba(255,255,255,0.82);
+      --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.12);
+      --shadow-md: 0 14px 35px rgba(15, 23, 42, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1220px;
     }
 
     * { box-sizing: border-box; }
@@ -25,9 +32,11 @@
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background: #fff;
+      color: var(--ink);
+      background: var(--bg);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a {
@@ -40,47 +49,53 @@
       max-width: 100%;
     }
 
-    .topbar {
-      background: var(--uc-red);
-      color: #fff;
-      font-size: 14px;
-      padding: 10px 24px;
-    }
-
     .container {
       max-width: var(--max);
       margin: 0 auto;
       padding: 0 24px;
     }
 
+    .topbar {
+      background: linear-gradient(90deg, var(--uc-red), var(--uc-red-dark));
+      color: #fff;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      padding: 11px 24px;
+      position: relative;
+      z-index: 50;
+    }
+
     header {
-      border-bottom: 1px solid var(--line);
-      background: #fff;
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.9);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
     }
 
     .header-inner {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 24px;
-      padding: 24px 0;
+      padding: 18px 0;
     }
 
     .eyebrow {
       font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted-light);
+      letter-spacing: 0.22em;
+      color: var(--muted);
       margin-bottom: 4px;
     }
 
     .site-title {
       font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
     nav {
@@ -88,8 +103,9 @@
       gap: 18px;
       flex-wrap: wrap;
       align-items: center;
+      color: var(--ink-soft);
       font-size: 14px;
-      color: var(--muted);
+      font-weight: 500;
     }
 
     nav a:hover,
@@ -115,21 +131,21 @@
 
     .dropdown {
       position: absolute;
-      top: calc(100% + 10px);
+      top: calc(100% + 12px);
       left: 0;
-      width: 220px;
-      background: #fff;
+      width: 230px;
+      background: rgba(255,255,255,0.96);
       border: 1px solid var(--line);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 8px 0;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
     }
 
     .dropdown a {
       display: block;
-      padding: 10px 14px;
+      padding: 11px 14px;
       font-size: 14px;
-      color: var(--muted);
+      color: var(--ink-soft);
     }
 
     .dropdown a:hover {
@@ -137,118 +153,257 @@
       color: var(--uc-red);
     }
 
-    .hero,
-    .strip,
-    .research-band,
-    .teaching-band {
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(140, 0, 26, 0.10), transparent 22%),
+        radial-gradient(circle at 85% 15%, rgba(15, 23, 42, 0.08), transparent 22%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 52%, #eef2f7 100%);
       border-bottom: 1px solid var(--line);
-      border-top: 1px solid var(--line);
     }
 
-    .hero {
-      background: var(--bg-soft);
-      border-top: 0;
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.78), rgba(255,255,255,0.62)),
+        url('hude.png') right 8% center / 30% auto no-repeat;
+      opacity: 0.14;
+      pointer-events: none;
     }
 
-    .hero-grid,
-    .two-col {
+    .hero-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 42px;
       align-items: center;
-      padding: 72px 0;
+      padding: 84px 0 78px;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--uc-red);
+      margin-bottom: 20px;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: rgba(140, 0, 26, 0.55);
     }
 
     .hero h1 {
-      font-size: clamp(34px, 5vw, 58px);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
       margin: 0;
+      font-size: clamp(40px, 5.6vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      font-weight: 850;
+      max-width: 900px;
     }
 
-    .hero p,
-    .body-copy,
-    .section p {
-      color: var(--muted);
-      font-size: 18px;
+    .hero p {
+      margin: 24px 0 0;
+      font-size: 19px;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      max-width: 760px;
     }
 
-    .placeholder-card {
-      min-height: 280px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at top right, rgba(140, 0, 26, 0.08), transparent 35%),
-        linear-gradient(135deg, #e2e8f0, #f8fafc);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: var(--muted-light);
+    .hero-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-card,
+    .stat-card {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: var(--shadow-lg);
+      border-radius: var(--radius-xl);
+    }
+
+    .hero-card {
+      min-height: 370px;
+      overflow: hidden;
+      position: relative;
       padding: 24px;
-      box-shadow: var(--shadow);
+      display: flex;
+      align-items: flex-end;
+      background:
+        linear-gradient(180deg, rgba(15,23,42,0.02), rgba(15,23,42,0.10)),
+        radial-gradient(circle at top left, rgba(140, 0, 26, 0.12), transparent 26%),
+        #ffffff;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        url('hude.png') center 38% / cover no-repeat;
+      opacity: 0.24;
+      filter: saturate(0.9) contrast(1.02);
+    }
+
+    .hero-card-overlay {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(255,255,255,0.75);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-card-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--uc-red);
+      margin-bottom: 8px;
+    }
+
+    .hero-card-text {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      padding: 18px 18px 16px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    section {
+      position: relative;
     }
 
     .section {
-      padding: 72px 0;
+      padding: 82px 0;
+    }
+
+    .section.alt {
+      background: linear-gradient(180deg, var(--bg-soft) 0%, #ffffff 100%);
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
     }
 
     .section-label {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.28em;
       color: var(--uc-red);
-      margin: 0 0 10px;
+      margin: 0 0 12px;
     }
 
     .section h2 {
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.15;
       margin: 0 0 18px;
-      letter-spacing: -0.02em;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
     }
 
-    .max-3 {
-      max-width: 800px;
+    .intro-copy {
+      max-width: 860px;
+      color: var(--ink-soft);
+      font-size: 18px;
+      line-height: 1.85;
     }
 
-    .strip {
-      background: var(--bg-soft-2);
+    .feature-band {
+      background:
+        radial-gradient(circle at left top, rgba(140, 0, 26, 0.08), transparent 24%),
+        linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 48px;
+      align-items: center;
+      padding: 86px 0;
+    }
+
+    .feature-portrait-wrap {
+      display: flex;
+      justify-content: center;
     }
 
     .portrait-lg {
-      width: 240px;
-      height: 240px;
-      border-radius: 20px;
+      width: 320px;
+      height: 380px;
+      border-radius: 30px;
       overflow: hidden;
-      background: #e2e8f0;
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255,255,255,0.8);
+      background: #dbe4ee;
+      position: relative;
     }
 
-    .portrait-lg img,
-    .portrait-sm img {
+    .portrait-lg img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .portrait-sm {
-      width: 90px;
-      height: 90px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: #e2e8f0;
-      border: 1px solid var(--line);
-      flex: 0 0 auto;
+    .feature-copy h2 {
+      margin-top: 0;
+    }
+
+    .feature-copy p {
+      color: var(--ink-soft);
+      font-size: 18px;
+      line-height: 1.85;
+      margin-bottom: 0;
     }
 
     .button-link {
-      display: inline-block;
-      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
       color: var(--uc-red);
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       background: none;
       border: 0;
@@ -263,40 +418,73 @@
     .leadership-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 28px 40px;
-      margin-top: 36px;
+      gap: 26px;
+      margin-top: 34px;
     }
 
     .person {
-      display: flex;
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 20px;
       align-items: center;
-      gap: 18px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
       background: #fff;
-      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .person:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .portrait-sm {
+      width: 112px;
+      height: 112px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #dbe4ee;
+      border: 1px solid var(--line-soft);
+    }
+
+    .portrait-sm img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .person-name {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.2;
+      font-size: 24px;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin-bottom: 6px;
     }
 
     .person-role {
-      color: var(--muted-light);
+      color: var(--muted);
       font-size: 14px;
-      margin-top: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .person-copy {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.7;
     }
 
     details.accordion,
     details.research-card {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      overflow: hidden;
       background: #fff;
-      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
     }
 
     details.accordion summary,
@@ -311,20 +499,22 @@
     }
 
     .accordion-summary {
-      background: var(--uc-red);
+      background: linear-gradient(90deg, var(--uc-red), var(--uc-red-dark));
       color: #fff;
-      padding: 18px 22px;
+      padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-weight: 700;
+      gap: 18px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
     }
 
     .accordion-body {
-      padding: 24px;
+      padding: 26px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 28px;
+      gap: 30px;
     }
 
     .accordion-body ul,
@@ -339,88 +529,204 @@
     .research-body li,
     .publication-list li,
     .funding-list li {
-      margin-bottom: 10px;
-      color: var(--text);
+      margin-bottom: 12px;
+      color: var(--ink);
     }
 
     .muted {
-      color: var(--muted-light);
+      color: var(--muted);
       font-size: 14px;
+      line-height: 1.5;
+      margin-top: 2px;
+    }
+
+    .collab-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px;
+      margin-top: 34px;
+    }
+
+    .collab-box,
+    .collab-note {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--line);
+      background: #fff;
     }
 
     .collab-box {
-      margin-top: 34px;
-      min-height: 320px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
+      min-height: 360px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(140, 0, 26, 0.10), transparent 22%),
-        radial-gradient(circle at 80% 30%, rgba(15, 23, 42, 0.06), transparent 20%),
-        linear-gradient(180deg, #f8fafc, #eef2f7);
+        radial-gradient(circle at 20% 20%, rgba(140, 0, 26, 0.14), transparent 18%),
+        radial-gradient(circle at 80% 30%, rgba(15, 23, 42, 0.08), transparent 18%),
+        radial-gradient(circle at 55% 72%, rgba(140, 0, 26, 0.09), transparent 16%),
+        linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--muted-light);
+      padding: 26px;
       text-align: center;
-      padding: 24px;
-      box-shadow: var(--shadow);
+      color: var(--muted);
     }
 
-    .research-band,
-    .teaching-band {
-      background: var(--bg-soft);
+    .collab-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.25), rgba(255,255,255,0.25)),
+        url('hude.png') center / cover no-repeat;
+      opacity: 0.06;
+      mix-blend-mode: multiply;
+    }
+
+    .collab-box-content {
+      position: relative;
+      z-index: 1;
+      max-width: 420px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(255,255,255,0.72);
+      border-radius: 22px;
+      padding: 20px 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .collab-note {
+      padding: 28px 24px;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+    }
+
+    .collab-note h3 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .collab-note p,
+    .collab-note li {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .collab-note ul {
+      margin: 0;
+      padding-left: 18px;
     }
 
     .research-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 24px;
-      margin-top: 36px;
+      margin-top: 34px;
     }
 
     .research-summary {
-      padding: 20px 22px;
+      padding: 22px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      font-weight: 700;
-      font-size: 18px;
+      gap: 18px;
+      font-weight: 800;
+      font-size: 19px;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
     }
 
     .research-body {
-      padding: 0 22px 20px;
+      padding: 0 24px 22px;
     }
 
     .publication-list,
     .funding-list {
-      margin-top: 22px;
+      margin-top: 20px;
+      color: var(--ink-soft);
+    }
+
+    .two-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      margin-top: 30px;
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.8;
     }
 
     .contact {
-      background: var(--bg-dark);
+      background:
+        radial-gradient(circle at top left, rgba(140,0,26,0.28), transparent 25%),
+        linear-gradient(180deg, #0f172a 0%, #09111d 100%);
       color: #fff;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
     .contact .section-label {
-      color: #fca5a5;
+      color: #fda4af;
     }
 
-    .contact p,
-    .contact .contact-copy {
-      color: #cbd5e1;
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .contact-copy,
+    .contact-card {
+      color: #d7e0ec;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 24px 55px rgba(0,0,0,0.2);
     }
 
     .contact-email {
-      margin-top: 18px;
-      font-weight: 600;
+      margin-top: 16px;
+      font-weight: 700;
       color: #fff;
+      font-size: 18px;
+    }
+
+    .home-view.hidden {
+      display: none;
     }
 
     .memorial-view {
       display: none;
       min-height: 100vh;
-      background: #fff;
+      background:
+        radial-gradient(circle at top right, rgba(140,0,26,0.10), transparent 22%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
     }
 
     .memorial-view.active,
@@ -428,15 +734,19 @@
       display: block;
     }
 
-    .home-view.hidden {
-      display: none;
+    .memorial-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 78px 24px 92px;
     }
 
     .back-link {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       color: var(--uc-red);
-      font-weight: 700;
-      margin-bottom: 24px;
+      font-weight: 800;
+      margin-bottom: 28px;
       cursor: pointer;
       background: none;
       border: 0;
@@ -448,30 +758,91 @@
       text-decoration: underline;
     }
 
-    .memorial-wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 72px 24px;
+    .memorial-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 38px;
+      align-items: start;
     }
 
-    .memorial-wrap h1 {
-      font-size: clamp(34px, 5vw, 52px);
-      margin: 0 0 20px;
-      letter-spacing: -0.03em;
+    .memorial-portrait {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #dbe4ee;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255,255,255,0.8);
     }
 
-    .memorial-wrap p {
-      color: var(--muted);
+    .memorial-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .memorial-copy h1 {
+      margin: 0 0 14px;
+      font-size: clamp(40px, 5vw, 66px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+
+    .memorial-sub {
+      color: var(--uc-red);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 18px;
+    }
+
+    .memorial-copy p {
+      color: var(--ink-soft);
       font-size: 18px;
+      line-height: 1.9;
+      margin: 0 0 16px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0 0;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.75);
+      color: var(--ink-soft);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .feature-grid,
+      .collab-grid,
+      .contact-wrap,
+      .memorial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side {
+        max-width: 760px;
+      }
     }
 
     @media (max-width: 900px) {
       .header-inner,
-      .hero-grid,
-      .two-col,
       .accordion-body,
+      .leadership-grid,
       .research-grid,
-      .leadership-grid {
+      .two-panel,
+      .hero-stats {
         grid-template-columns: 1fr;
         display: grid;
       }
@@ -484,9 +855,18 @@
         gap: 14px;
       }
 
+      .person {
+        grid-template-columns: 96px 1fr;
+      }
+
+      .portrait-sm {
+        width: 96px;
+        height: 96px;
+      }
+
       .portrait-lg {
-        width: 200px;
-        height: 200px;
+        width: 280px;
+        height: 340px;
       }
     }
 
@@ -502,22 +882,43 @@
       }
 
       .header-inner {
-        padding: 18px 0;
-      }
-
-      nav {
-        font-size: 13px;
+        padding: 16px 0;
       }
 
       .site-title {
         font-size: 24px;
       }
 
-      .section,
+      nav {
+        font-size: 13px;
+      }
+
       .hero-grid,
-      .two-col {
-        padding-top: 52px;
-        padding-bottom: 52px;
+      .feature-grid,
+      .section {
+        padding-top: 58px;
+        padding-bottom: 58px;
+      }
+
+      .hero-card {
+        min-height: 300px;
+      }
+
+      .portrait-lg {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        aspect-ratio: 4 / 5;
+      }
+
+      .person {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-sm {
+        width: 100%;
+        max-width: 160px;
+        height: 160px;
       }
     }
   </style>
@@ -552,16 +953,36 @@
       </div>
     </header>
 
-    <section class="hero">
+    <section class="hero-shell hero">
       <div class="container hero-grid">
-        <div>
+        <div class="hero-copy">
+          <div class="hero-kicker">Data, Discovery, and Health Impact</div>
           <h1>A Journey to Advance Health Informatics Through Collaboration, Connection, and Impact</h1>
-          <p class="body-copy">
+          <p>
             The QUAN-CORE Lab contributes to the Centre for Health Informatics’ mission of advancing precision health through timely data access, analytics, and collaborative research across disciplines.
           </p>
         </div>
-        <div class="placeholder-card">
-          Research / Data Visualization Image
+
+        <div class="hero-side">
+          <div class="hero-card">
+            <div class="hero-card-overlay">
+              <div class="hero-card-title">Research Mission</div>
+              <div class="hero-card-text">
+                Building rigorous, collaborative, data-driven approaches that strengthen research quality, health system learning, and real-world impact across population and clinical domains.
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-value">Data</div>
+              <div class="stat-label">Applied health informatics grounded in real-world datasets and evidence.</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">Methods</div>
+              <div class="stat-label">Analytics, quality, and methodological rigor across diverse research settings.</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -570,29 +991,35 @@
       <div class="container">
         <p class="section-label">About</p>
         <h2>About the Lab</h2>
-        <p class="max-3">
-          The QUAN-CORE Lab operates within the Centre for Health Informatics, a multidisciplinary research environment designed to transform health data into meaningful evidence through analytics, linkage, and applied research.
-        </p>
-        <p class="max-3">
-          The lab focuses on improving data validity, developing robust methodologies, and applying health data to generate insights that improve health systems, clinical decision-making, and population health outcomes.
-        </p>
+        <div class="intro-copy">
+          <p>
+            The QUAN-CORE Lab operates within the Centre for Health Informatics, a multidisciplinary research environment designed to transform health data into meaningful evidence through analytics, linkage, and applied research.
+          </p>
+          <p>
+            The lab focuses on improving data validity, developing robust methodologies, and applying health data to generate insights that improve health systems, clinical decision-making, and population health outcomes.
+          </p>
+        </div>
       </div>
     </section>
 
-    <section class="strip">
-      <div class="container two-col">
-        <div class="portrait-lg">
-          <img id="hudeImgMain" alt="Hude Quan portrait" src="hude.png" />
+    <section class="feature-band">
+      <div class="container feature-grid">
+        <div class="feature-portrait-wrap">
+          <div class="portrait-lg">
+            <img src="hude.png" alt="Hude Quan portrait" />
+          </div>
         </div>
-        <div>
-          <h2 style="margin-top:0;">Hude Quan</h2>
+
+        <div class="feature-copy">
+          <p class="section-label">Legacy</p>
+          <h2>Hude Quan</h2>
           <p>
             Dr. Hude Quan played a foundational role in shaping health informatics at the University of Calgary and helped establish the Centre for Health Informatics as a collaborative hub for data science, research innovation, and interdisciplinary partnership.
           </p>
           <p>
             His work in administrative data validation, comorbidity measurement, and population health research has had a lasting international impact.
           </p>
-          <button class="button-link" id="viewMemorialBtn">View memorial</button>
+          <button class="button-link" id="viewMemorialBtn">View memorial →</button>
         </div>
       </div>
     </section>
@@ -605,34 +1032,42 @@
         <div class="leadership-grid">
           <div class="person">
             <div class="portrait-sm">
-              <img id="catherineImgEl" alt="Catherine Eastwood portrait" src="catherine.png" />
+              <img src="catherine.png" alt="Catherine Eastwood portrait" />
             </div>
             <div>
               <div class="person-name">Catherine Eastwood</div>
               <div class="person-role">Faculty Lead</div>
+              <div class="person-copy">
+                Supporting the lab’s academic direction, collaboration culture, and research development across evolving health informatics initiatives.
+              </div>
             </div>
           </div>
 
           <div class="person">
             <div class="portrait-sm">
-              <img id="naImgEl" alt="Na Li portrait" src="na.png" />
+              <img src="na.png" alt="Na Li portrait" />
             </div>
             <div>
               <div class="person-name">Na Li</div>
               <div class="person-role">Faculty Lead</div>
+              <div class="person-copy">
+                Advancing data-intensive health research through strong methodological design, analytical rigor, and multidisciplinary partnership.
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="team" class="section">
+    <section id="team" class="section alt">
       <div class="container">
         <p class="section-label">Team</p>
         <h2>Research Team</h2>
-        <p class="max-3">
-          Members are organized similarly to CHI listings with expandable groups and concise role descriptions.
-        </p>
+        <div class="intro-copy">
+          <p>
+            Members are organized similarly to CHI listings with expandable groups and concise role descriptions.
+          </p>
+        </div>
 
         <details class="accordion" open>
           <summary class="accordion-summary">
@@ -667,23 +1102,41 @@
       <div class="container">
         <p class="section-label">Collaborations</p>
         <h2>Global Collaborations</h2>
-        <p class="max-3">
-          The QUAN-CORE Lab maintains collaborations across Canada and internationally. This section will evolve into an interactive map highlighting institutional partnerships, global programs, and research networks.
-        </p>
 
-        <div class="collab-box">
-          Collaboration Map (placeholder)
+        <div class="collab-grid">
+          <div class="collab-box">
+            <div class="collab-box-content">
+              <strong style="display:block; margin-bottom:8px; font-size:18px; color:#0f172a;">Collaboration Map</strong>
+              <span>
+                A visual collaboration layer can live here, highlighting institutional partnerships, global programs, and research networks.
+              </span>
+            </div>
+          </div>
+
+          <div class="collab-note">
+            <h3>Research networks with room to grow</h3>
+            <p>
+              This section is positioned to evolve into a stronger showcase of international reach and institutional connectivity.
+            </p>
+            <ul>
+              <li>Canadian and international partnerships</li>
+              <li>Global health informatics engagement</li>
+              <li>Programmatic and institutional collaborations</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="research" class="section research-band">
+    <section id="research" class="section alt">
       <div class="container">
         <p class="section-label">Research &amp; Innovation</p>
         <h2>Research Areas</h2>
-        <p class="max-3">
-          Key research themes are organized below. Each section expands to show current areas of activity and program development.
-        </p>
+        <div class="intro-copy">
+          <p>
+            Key research themes are organized below. Each section expands to show current areas of activity and program development.
+          </p>
+        </div>
 
         <div class="research-grid">
           <details class="research-card">
@@ -747,24 +1200,47 @@
       <div class="container">
         <p class="section-label">Publications</p>
         <h2>Selected Publications</h2>
-        <ul class="publication-list">
-          <li>Quan H, et al. Algorithms for defining comorbidities in ICD-coded data.</li>
-          <li>Quan H, et al. Validity of administrative data in health research.</li>
-          <li>Quan H, et al. Coding and classification in population health datasets.</li>
-        </ul>
+
+        <div class="two-panel">
+          <div class="panel">
+            <h3>Foundational Contributions</h3>
+            <ul class="publication-list">
+              <li>Quan H, et al. Algorithms for defining comorbidities in ICD-coded data.</li>
+              <li>Quan H, et al. Validity of administrative data in health research.</li>
+              <li>Quan H, et al. Coding and classification in population health datasets.</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>Publication Direction</h3>
+            <p>
+              This section can later expand into filtered publication groupings, highlighted papers, and direct links to lab outputs, collaborators, and impact areas.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="teaching" class="section teaching-band">
+    <section id="teaching" class="section alt">
       <div class="container">
         <p class="section-label">Teaching</p>
         <h2>Teaching &amp; Training</h2>
-        <p class="max-3">
-          The lab contributes to graduate and professional training programs in health data science and informatics, including MDCH 664.
-        </p>
-        <p class="max-3">
-          <strong>MDCH 664 - Health Data Science &amp; Informatics:</strong> Focuses on applied data methods, real-world health data, and analytical approaches used in modern health systems.
-        </p>
+
+        <div class="two-panel">
+          <div class="panel">
+            <h3>Graduate and Professional Training</h3>
+            <p>
+              The lab contributes to graduate and professional training programs in health data science and informatics, including MDCH 664.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3>MDCH 664</h3>
+            <p>
+              <strong>Health Data Science &amp; Informatics</strong> focuses on applied data methods, real-world health data, and analytical approaches used in modern health systems.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -772,25 +1248,37 @@
       <div class="container">
         <p class="section-label">Funded Projects</p>
         <h2>Funded Research</h2>
-        <ul class="funding-list">
-          <li>Federated learning for disease case finding and clinical prediction</li>
-          <li>EMR data quality and heart failure analytics (AI/ML applications)</li>
-          <li>Administrative data validation and population health research</li>
-        </ul>
+
+        <div class="panel" style="margin-top:28px;">
+          <ul class="funding-list">
+            <li>Federated learning for disease case finding and clinical prediction</li>
+            <li>EMR data quality and heart failure analytics (AI/ML applications)</li>
+            <li>Administrative data validation and population health research</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <section id="contact" class="section contact">
-      <div class="container">
-        <p class="section-label">Contact</p>
-        <h2>Contact</h2>
-        <div class="contact-copy">
-          Centre for Health Informatics<br />
-          University of Calgary<br />
-          CWPH 5E04, Foothills Campus<br />
-          Calgary, AB
+      <div class="container contact-wrap">
+        <div>
+          <p class="section-label">Contact</p>
+          <h2>Contact</h2>
+          <div class="contact-copy">
+            Centre for Health Informatics<br />
+            University of Calgary<br />
+            CWPH 5E04, Foothills Campus<br />
+            Calgary, AB
+          </div>
+          <div class="contact-email">connect@quan-core.com</div>
         </div>
-        <div class="contact-email">connect@quan-core.com</div>
+
+        <div class="contact-card">
+          <strong style="display:block; margin-bottom:12px; font-size:20px; color:#fff;">QUAN-CORE Lab</strong>
+          <div style="line-height:1.85;">
+            A research environment focused on health data, methods, collaboration, and meaningful system impact.
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -798,19 +1286,32 @@
   <div id="memorialView" class="memorial-view">
     <div class="memorial-wrap">
       <button class="back-link" id="backHomeBtn">← Back</button>
-      <h1>Hude Quan</h1>
 
-      <div class="portrait-lg" style="margin-bottom: 28px;">
-        <img id="hudeImgMemorial" alt="Hude Quan portrait" src="hude.png" />
+      <div class="memorial-grid">
+        <div class="memorial-portrait">
+          <img src="hude.png" alt="Hude Quan portrait" />
+        </div>
+
+        <div class="memorial-copy">
+          <div class="memorial-sub">Legacy and Impact</div>
+          <h1>Hude Quan</h1>
+
+          <p>
+            Dr. Hude Quan was a founding leader in the Centre for Health Informatics and helped establish its vision as a collaborative, data-driven research hub focused on precision health and population health outcomes.
+          </p>
+
+          <p>
+            His work advanced the use of administrative data, supported the development of health data standards, and contributed to building a global network of researchers in health informatics.
+          </p>
+
+          <div class="pill-row">
+            <span class="pill">Health Informatics</span>
+            <span class="pill">Administrative Data</span>
+            <span class="pill">Population Health</span>
+            <span class="pill">Global Research Impact</span>
+          </div>
+        </div>
       </div>
-
-      <p>
-        Dr. Hude Quan was a founding leader in the Centre for Health Informatics and helped establish its vision as a collaborative, data-driven research hub focused on precision health and population health outcomes.
-      </p>
-
-      <p>
-        His work advanced the use of administrative data, supported the development of health data standards, and contributed to building a global network of researchers in health informatics.
-      </p>
     </div>
   </div>
 
